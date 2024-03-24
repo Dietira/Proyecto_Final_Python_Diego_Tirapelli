@@ -1,0 +1,51 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1>Listado de solicitudes</h1>
+<br><br>
+
+{% endblock %}
+
+{% block contenido %}
+<br>
+<br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Foto</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Fecha de solicitud</th>        
+      <th scope="col">Fecha de cambio de estado</th> 
+      <th scope="col">Estado</th>   
+      <th scope="col">Mensaje</th> 
+      <th scope="col">Respuesta</th>  
+      <th scope="col">Opciones</th>        
+     </tr>
+  </thead>
+  <tbody>
+    {% for valor in solicitudes %}
+    <tr>
+      {% if valor.mascota.foto %}
+      <td><img src="{{valor.mascota.foto.url}}" alt="foto no disponible" style= "max-width: 150px"></td>
+      {% else %}
+      <td>Foto no disponible</td>
+      {% endif %}        
+       <td>{{valor.usuario.first_name}}</td>
+      <td>{{valor.fecha_solicitud}}</td>
+      <td>{{valor.fecha_cambio_estado}}</td>
+      <td>{{valor.estado}}</td>
+      <td>{{valor.mensaje}}</td>
+      <td>{{valor.respuesta}}</td> 
+      <td>
+        {% if user.is_authenticated and request.user.is_superuser %}
+        <a href="{% url 'Editar_Solicitud' valor.id %}">Editar</a>
+        {% endif %}
+        <a href="{% url 'Eliminar_Solicitud' valor.id %}">Eliminar</a>
+      </td>           
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

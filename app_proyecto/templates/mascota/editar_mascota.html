@@ -1,0 +1,20 @@
+{% extends "app_proyecto/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1>Editar mascota</h1>
+{% endblock %}
+
+
+{% block contenido %}
+
+<form action="" method="POST" enctype = "multipart/form-data"> {% csrf_token %}
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <a href="{% url 'Listar_Mascota' %}" class="card-link">Atras</a> 
+    <input type="submit", value="Actualizar">
+</form>  
+{% endblock %}
+

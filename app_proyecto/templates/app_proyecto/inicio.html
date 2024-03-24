@@ -1,0 +1,23 @@
+{% extends "app_proyecto/padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="welcome-text">
+    <h1>Bienvenido a nuestra página de adopción de mascotas</h1>
+    <br><br>
+    <p>Esta es una plataforma dedicada a ayudar a las mascotas a encontrar un hogar amoroso. Aquí, puedes explorar los perfiles de numerosas mascotas que están esperando ser adoptadas.</p>
+    <p>Para ver los perfiles de las mascotas disponibles para adopción, gestionar una solicitud de adopción y seleccionar tus mascotas favoritas, necesitas iniciar sesión en tu cuenta. Si aún no tienes una cuenta, puedes registrarte fácilmente en nuestra página de registro.</p>
+    <p>¡Gracias por unirte a nosotros en esta misión de proporcionar un hogar a todas las mascotas que lo necesitan!</p>
+    <br><br>
+</div>
+{% if not user.is_authenticated %}
+<div style="text-align: center;">
+    <p>{{mensaje}}</p> 
+</div>
+
+<div style="text-align: center;">
+    <a href="{% url 'Loguin' %}" class="btn btn-primary">Ingresa aquí</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-1">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>Editar perfil de {{ user.username }}</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'Editar_Perfil' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                <label for="first_name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                            </div>
+                            <div class="col">
+                                <label for="last_name" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                            </div>
+                        </div>
+                        <div class="mb-1">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                        </div>
+                        <div class="mb-1">
+                            <label for="imagen" class="form-label">Avatar actual</label><br>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="{{ user.avatar.imagen.url }}" width="100px" height="100px" alt="Avatar">
+                            </div><br>
+                            <label for="imagen" class="form-label">Cambiar avatar</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary mt-2">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

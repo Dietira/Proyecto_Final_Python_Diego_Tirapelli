@@ -1,0 +1,48 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1>Listado de favoritos</h1>
+<br><br>
+
+{% endblock %}
+
+{% block contenido %}
+<br>
+<br>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Raza</th>        
+        <th scope="col">Descripción</th> 
+        <th scope="col">Id</th> 
+        <th scope="col">Opciones</th>        
+       </tr>
+    </thead>
+    <tbody>
+      {% for valor in favoritos %}
+      <tr>
+        {% if valor.mascota.foto %}
+        <td><img src="{{valor.mascota.foto.url}}" alt="foto no disponible" style= "max-width: 150px"></td>
+        {% else %}
+        <td>Foto no disponible</td>
+        {% endif %}        
+         <td>{{valor.mascota.nombre}}</td>
+        <td>{{valor.mascota.raza}}</td>
+        <td>{{valor.mascota.descripcion}}</td>
+        <td>{{valor.mascota.id}}</td>
+        <td>
+         <div><a href="{% url 'Eliminar_Favorito' valor.id %}" class="btn btn-danger btn-sm">Eliminar favorito</a></div>
+         <div> <a href="{% url 'Crear_Solicitud' valor.mascota.id %}" class="btn btn-info btn-sm mt-2">Generar solicitud de adopción</a></div> 
+        </td>           
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+

@@ -1,0 +1,37 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1>Mascotas disponibles para adopción</h1>
+<br><br>
+{% endblock %}
+
+{% block contenido %}
+<div class="container py-1">
+  <div class="row">
+    {% for valor in mascotas %} 
+    <div class="col-md-4">
+      <div class="card mb-4">
+        {% if valor.foto %}
+        <img class="card-img-top" src="{{valor.foto.url}}" alt="foto no disponible" style= "max-width: 150px">
+        {% else %}
+        <div class="card-img-top">Foto no disponible</div>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{valor.nombre}}</h5>
+          <p class="card-text">{{valor.descripcion|truncatechars:75}}</p>
+          <a href="{% url 'Detalle_Mascota' valor.id %}" class="btn btn-primary">Ver más detalles</a>
+          {% if user.is_authenticated and not request.user.is_superuser %}
+          <form method="post" action="{% url 'agregar_favorito' valor.id %}"> 
+            {% csrf_token %}        
+            <input type="submit" value="Agregar a favoritos" class="btn btn-secondary btn-sm mt-2">
+          </form>
+          <a href="{% url 'Crear_Solicitud' valor.id %}" class="btn btn-info btn-sm mt-2">Solicitar adopción</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "app_proyecto/padre.html" %}
+
+
+{% block contenido %}
+
+<div class="container py-1">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card">
+              <div class="card-header bg-primary text-white text-center">
+                  <h5>Alta de Mascota</h5>
+              </div>
+              <div class="card-body">
+                  <form method="POST" action="{% url 'Crear_Mascota' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="mb-1">
+                          <label for="nombre" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="nombre" name="nombre">
+                      </div>
+                      <div class="mb-1">
+                          <label for="raza" class="form-label">Raza</label>
+                          <select class="form-control" id="raza" name="raza">
+                            <option value="" selected disabled>Selecciona una raza</option>
+                              {% for raza in razas %}
+                                  <option value="{{ raza.id }}">{{ raza.nombre }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="mb-1">
+                          <label for="tipo" class="form-label">Tipo</label>
+                          <select class="form-control" id="tipo" name="tipo">
+                            <option value="" selected disabled>Selecciona un tipo </option>
+                            <option value="PERRO">Perro</option>
+                            <option value="GATO">Gato</option>
+                            <option value="OTRO">Otro</option>
+                          </select>
+                      </div>
+                      <div class="mb-1">
+                          <label for="descripcion" class="form-label">Descripción</label>
+                          <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                      </div>
+                      <div class="mb-1">
+                          <label for="foto" class="form-label">Foto</label>
+                          <input type="file" class="form-control" id="foto" name="foto">
+                      </div>
+                      <div class="d-flex justify-content-center">
+                          <button type="submit" class="btn btn-primary mt-2">Dar de alta</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

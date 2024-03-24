@@ -1,0 +1,54 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1>Detalles de la mascota</h1>
+<br><br><br><br>
+{% endblock %}
+
+{% block contenido %}
+<div class="container py-1">
+  <div class="row">
+    
+    <div class="col-md-4">
+      {% if mascota.foto %}
+      <img src="{{mascota.foto.url}}" alt="foto no disponible" style= "max-width: 150px">
+      {% else %}
+      <div>Foto no disponible</div>
+      {% endif %}
+      <h2>{{mascota.nombre}}</h2>
+      {% if user.is_authenticated and not request.user.is_superuser %}
+      <form method="post" action="{% url 'agregar_favorito' mascota.id %}">
+        {% csrf_token %}
+        <input type="submit" value="Agregar a favoritos" class="btn btn-secondary btn-sm mt-2">
+      </form>
+      <div> 
+        <a href="{% url 'Crear_Solicitud' mascota.id %}" class="btn btn-info btn-sm mt-2">Solicitar adopción</a>
+      </div>
+      <div>
+      {% endif %}
+        <a href="{% url 'En_Adopcion' %}" class="btn btn-info btn-sm mt-2">Volver</a>
+      </div>
+      
+    </div>
+
+    <div class="col-md-4">
+      <h3>Información de la mascota</h3>
+      <p><strong>Nombre:</strong> {{mascota.nombre}}</p>
+      <p><strong>Raza:</strong> {{mascota.raza}}</p>
+      <p><strong>Descripción:</strong> {{mascota.descripcion}}</p>
+    </div>
+
+
+    <div class="col-md-4">
+      <h3>Información de la raza</h3>
+      <p><strong>Raza:</strong> {{mascota.raza.nombre}}</p>
+      <p><strong>Origen:</strong> {{mascota.raza.origen}}</p>
+      <p><strong>Tamanño promedio:</strong> {{mascota.raza.tamanio_promedio}}</p>
+      <p><strong>Esperanza de vida:</strong> {{mascota.raza.esperanza_de_vida}}</p>
+      <p><strong>Detalle de la raza:</strong> {{mascota.raza.descripcion}}</p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

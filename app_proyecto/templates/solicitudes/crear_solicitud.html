@@ -1,0 +1,20 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1>Crear solicitud de adopción</h1>
+<br><br>
+{% endblock %}
+
+{% block contenido %}
+<form action ="" method="POST"> {% csrf_token %}
+    <div class="card mx-auto" style="width: 25rem;">
+        <div class="card-body">
+          <h5 class="card-title">Solicitud de adpocion para: {{ mascota.nombre }}</h5>
+          {{ formulario.mensaje.label_tag }} {{ formulario.mensaje }}
+          <a href="{% url 'Home' %}" class="btn btn-secondary btn-sm mt-2">Cancelar</a>
+          <button class="btn btn-primary btn-sm float-end mt-2" type="submit">Enviar solicitud</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

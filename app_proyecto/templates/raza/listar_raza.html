@@ -1,0 +1,47 @@
+{% extends "app_proyecto/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1>Listado de razas</h1>
+<br><br>
+
+{% endblock %}
+
+
+{% block contenido %}
+
+<div class="container py-1">
+  <a href="{% url 'Crear_Raza' %}" class="btn btn-primary mb-3">Agregar otra raza + </a>
+
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Origen</th>
+          <th scope="col">Tamaño</th>        
+          <th scope="col">Esperanza de vida</th>        
+          <th scope="col">Descripción</th>        
+          <th scope="col">Opciones</th>        
+         </tr>
+      </thead>
+      <tbody>
+        {% for valor in razas %}
+        <tr>        
+          <td>{{valor.nombre}}</td>
+          <td>{{valor.origen}}</td>
+          <td>{{valor.tamanio_promedio}}</td>
+          <td>{{valor.esperanza_de_vida}}</td>
+          <td>{{valor.descripcion}}</td>
+          <td>
+              <a href="{% url 'Editar_Raza' valor.id %}" class="btn btn-primary btn-sm">Editar</a>
+              <a href="{% url 'Eliminar_Raza' valor.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </td> 
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}
+
+
